@@ -10,7 +10,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.spotbugs' version '5.0.14'
+    id 'checkstyle'
 }
 
 
@@ -45,18 +45,10 @@ task runApp(type: JavaExec) {
     mainClass = 'com.ronan.kmeans.Main'
 }
 
-spotbugs {
-    toolVersion = "4.7.3"
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
+checkstyle {
+    toolVersion = "10.12.4"
+    config = resources.text.fromFile("config/checkstyle/checkstyle.xml")
 }
 
-tasks.withType(com.github.spotbugs.SpotBugsTask).configureEach {
-    reports {
-        html.enabled = true
-        xml.enabled = false
-    }
-}
 
 
