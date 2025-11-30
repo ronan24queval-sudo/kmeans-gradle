@@ -6,6 +6,9 @@
  * User Manual available at https://docs.gradle.org/7.2/userguide/building_java_projects.html
  */
 
+import com.github.spotbugs.snom.Effort
+import com.github.spotbugs.snom.ReportLevel
+
 plugins {
     id 'java'
     id 'application'
@@ -46,8 +49,8 @@ task runApp(type: JavaExec) {
 spotbugs {
     toolVersion = "4.8.4"
     ignoreFailures = false
-    effort = com.github.spotbugs.snom.Effort.MAX
-    reportLevel = com.github.spotbugs.snom.ReportLevel.HIGH
+    effort = Effort.MAX
+    reportLevel = ReportLevel.HIGH
 }
 
 
