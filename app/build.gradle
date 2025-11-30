@@ -6,13 +6,11 @@
  * User Manual available at https://docs.gradle.org/7.2/userguide/building_java_projects.html
  */
 
-import com.github.spotbugs.snom.Effort
-import com.github.spotbugs.snom.ReportLevel
 
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.spotbugs' version '6.0.13'
+    id 'com.github.spotbugs' version '5.0.14'
 }
 
 group = 'com.ronan'
@@ -47,16 +45,15 @@ task runApp(type: JavaExec) {
 }
 
 spotbugs {
-    toolVersion = "4.8.4"
+    toolVersion = "4.7.3"
     ignoreFailures = false
-    effort = Effort.MAX
-    reportLevel = ReportLevel.HIGH
+    effort = "max"
+    reportLevel = "high"
 }
 
-
-tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+tasks.withType(com.github.spotbugs.SpotBugsTask).configureEach {
     reports {
-        html.required = true
-        html.stylesheet = 'fancy-hist.xsl'
+        html.enabled = true
+        xml.enabled = false
     }
 }
