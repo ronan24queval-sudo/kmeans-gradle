@@ -43,3 +43,16 @@ task runApp(type: JavaExec) {
     mainClass = 'com.ronan.kmeans.Main'
 }
 
+spotbugs {
+    toolVersion = "4.8.4"
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        html.required = true
+        html.stylesheet = 'fancy-hist.xsl'
+    }
+}
