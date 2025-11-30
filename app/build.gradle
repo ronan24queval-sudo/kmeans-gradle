@@ -46,9 +46,10 @@ task runApp(type: JavaExec) {
 spotbugs {
     toolVersion = "4.8.4"
     ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
+    effort = com.github.spotbugs.snom.Effort.MAX
+    reportLevel = com.github.spotbugs.snom.ReportLevel.HIGH
 }
+
 
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
     reports {
