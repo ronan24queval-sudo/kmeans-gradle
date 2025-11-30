@@ -13,6 +13,7 @@ plugins {
     id 'com.github.spotbugs' version '5.0.14'
 }
 
+
 group = 'com.ronan'
 version = '1.0.0'
 
@@ -57,3 +58,5 @@ tasks.withType(com.github.spotbugs.SpotBugsTask).configureEach {
         xml.enabled = false
     }
 }
+
+
