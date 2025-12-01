@@ -5,6 +5,24 @@ import org.apache.commons.math3.ml.distance.EuclideanDistance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Implementation of the K-Means clustering algorithm.
+ *
+ * <p>This class supports clustering multidimensional points represented as
+ * {@code double[]} arrays. It performs iterative centroid recomputation
+ * until convergence or until a maximum number of iterations is reached.</p>
+ *
+ * <p>The algorithm proceeds through the following steps:</p>
+ * <ol>
+ *   <li>Randomly initialize the cluster centroids</li>
+ *   <li>Assign each point to the closest centroid</li>
+ *   <li>Recompute centroids based on assigned points</li>
+ *   <li>Repeat until convergence or iteration limit</li>
+ * </ol>
+ *
+ * <p>Logging is performed via SLF4J at INFO and DEBUG levels to
+ * visualize algorithm evolution during execution.</p>
+ */
 public class KMeans {
 
     private static final Logger logger = LoggerFactory.getLogger(KMeans.class);
@@ -13,11 +31,23 @@ public class KMeans {
     private int maxIterations;
     private EuclideanDistance distance = new EuclideanDistance();
 
+    /**
+     * Creates a new K-Means clustering model.
+     *
+     * @param k number of clusters to generate
+     * @param maxIterations maximum number of iterations before stopping
+     */
     public KMeans(int k, int maxIterations) {
         this.k = k;
         this.maxIterations = maxIterations;
     }
 
+    /**
+     * Runs the K-Means algorithm on the provided dataset.
+     *
+     * @param data list of points, where each point is represented as {@code double[]}
+     * @return a list of final centroid positions after convergence
+     */
     public List<double[]> fit(List<double[]> data) {
 
         logger.info("Starting K-Means with k = {}, maxIterations = {} and dataset size = {}", 
@@ -53,9 +83,15 @@ public class KMeans {
     }
 
     // -----------------------------------------------------------
-    // Méthodes rendues package-private pour les tests (pas private)
+    // Méthodes package-private pour les tests
     // -----------------------------------------------------------
 
+    /**
+     * Randomly selects {@code k} points from the dataset to serve as initial centroids.
+     *
+     * @param data input dataset
+     * @return a list of initial centroids
+     */
     List<double[]> initializeCentroids(List<double[]> data) {
         Collections.shuffle(data);
         List<double[]> initial = new ArrayList<>(data.subList(0, k));
@@ -63,6 +99,13 @@ public class KMeans {
         return initial;
     }
 
+    /**
+     * Assigns each point in the dataset to the closest centroid.
+     *
+     * @param data list of points
+     * @param centroids current centroid positions
+     * @return a mapping between each centroid and the points assigned to it
+     */
     Map<double[], List<double[]>> assignPointsToClusters(List<double[]> data, List<double[]> centroids) {
         Map<double[], List<double[]>> clusters = new HashMap<>();
 
@@ -93,6 +136,12 @@ public class KMeans {
         return clusters;
     }
 
+    /**
+     * Recomputes centroids by computing the mean of all points in each cluster.
+     *
+     * @param clusters map where each key is a centroid and each value is its assigned points
+     * @return the list of updated centroid positions
+     */
     List<double[]> recomputeCentroids(Map<double[], List<double[]>> clusters) {
         List<double[]> newCentroids = new ArrayList<>();
 
