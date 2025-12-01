@@ -4,9 +4,24 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link KMeans} class.
+ *
+ * <p>These tests verify that:</p>
+ * <ul>
+ *     <li>The K-Means algorithm runs without errors</li>
+ *     <li>Initial centroids are correctly generated</li>
+     <li>Points are correctly assigned to the closest centroid</li>
+ *     <li>New centroids are correctly recomputed from clusters</li>
+ * </ul>
+ *
+ * <p>All tests use very small datasets to validate core algorithm behavior.</p>
+ */
 public class KMeansTest {
 
-    // --- TON TEST ORIGINEL ---
+    /**
+     * Verifies that the K-Means algorithm completes and returns exactly k centroids.
+     */
     @Test
     public void testKMeansRuns() {
         List<double[]> data = Arrays.asList(
@@ -21,7 +36,9 @@ public class KMeansTest {
         assertEquals(2, centroids.size());
     }
 
-    // --- TEST 1 : initialisation correcte ---
+    /**
+     * Tests that exactly k points are selected as initial centroids.
+     */
     @Test
     public void testInitializeCentroids() {
         KMeans k = new KMeans(2, 10);
@@ -37,7 +54,9 @@ public class KMeansTest {
         assertEquals(2, centroids.size(), "Should pick exactly k initial centroids");
     }
 
-    // --- TEST 2 : assignation aux bons clusters ---
+    /**
+     * Tests that points are assigned to the correct centroid based on Euclidean distance.
+     */
     @Test
     public void testAssignPointsToClusters() {
         KMeans k = new KMeans(2, 10);
@@ -61,7 +80,9 @@ public class KMeansTest {
         assertEquals(2, clusters.get(centroids.get(1)).size());
     }
 
-    // --- TEST 3 : recomputation correcte des centroïdes ---
+    /**
+     * Tests that new centroids are correctly computed as the mean of cluster points.
+     */
     @Test
     public void testRecomputeCentroids() {
         KMeans k = new KMeans(2, 10);
