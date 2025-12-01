@@ -108,6 +108,3 @@ app/build/docs/javadoc/index.html
 This project is licensed under the **MIT License** — see the `LICENSE` file.
 
 
-## 10. License
-
-This project is licensed under the **MIT License** — see the `LICENSE` file.
