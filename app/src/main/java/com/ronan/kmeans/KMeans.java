@@ -52,14 +52,18 @@ public class KMeans {
         return centroids;
     }
 
-    private List<double[]> initializeCentroids(List<double[]> data) {
+    // -----------------------------------------------------------
+    // Méthodes rendues package-private pour les tests (pas private)
+    // -----------------------------------------------------------
+
+    List<double[]> initializeCentroids(List<double[]> data) {
         Collections.shuffle(data);
         List<double[]> initial = new ArrayList<>(data.subList(0, k));
         logger.debug("Centroids initialized randomly: {}", Arrays.deepToString(initial.toArray()));
         return initial;
     }
 
-    private Map<double[], List<double[]>> assignPointsToClusters(List<double[]> data, List<double[]> centroids) {
+    Map<double[], List<double[]>> assignPointsToClusters(List<double[]> data, List<double[]> centroids) {
         Map<double[], List<double[]>> clusters = new HashMap<>();
 
         for (double[] centroid : centroids) {
@@ -89,7 +93,7 @@ public class KMeans {
         return clusters;
     }
 
-    private List<double[]> recomputeCentroids(Map<double[], List<double[]>> clusters) {
+    List<double[]> recomputeCentroids(Map<double[], List<double[]>> clusters) {
         List<double[]> newCentroids = new ArrayList<>();
 
         for (Map.Entry<double[], List<double[]>> entry : clusters.entrySet()) {
