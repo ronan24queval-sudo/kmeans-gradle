@@ -6,6 +6,9 @@
  * User Manual available at https://docs.gradle.org/7.2/userguide/building_java_projects.html
  */
 
+implementation 'ch.qos.logback:logback-classic:1.4.12'
+implementation 'org.slf4j:slf4j-api:2.0.9'
+
 
 plugins {
     id 'java'
