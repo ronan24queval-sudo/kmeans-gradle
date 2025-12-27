@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Example dataset (2-dimensional points)
-        List<double[]> data = Arrays.asList(
+        final List<double[]> data = Arrays.asList(
                 new double[]{1.0, 2.0},
                 new double[]{1.5, 1.8},
                 new double[]{5.0, 8.0},
@@ -30,10 +30,10 @@ public class Main {
         );
 
         // Create the K-Means model
-        KMeans kmeans = new KMeans(2, 100);
+        final KMeans kmeans = new KMeans(2, 100);
 
         // Train the model and get final centroids
-        List<double[]> centroids = kmeans.fit(data);
+        final List<double[]> centroids = kmeans.fit(data);
 
         // Print the results
         System.out.println("Final centroids:");
