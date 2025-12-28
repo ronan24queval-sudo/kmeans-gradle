@@ -117,12 +117,16 @@ public class KMeansTest {
     }
 
     private boolean arraysEqualWithTolerance(double[] a, double[] b) {
-        if (a.length != b.length) return false;
+        if (a.length != b.length) {
+            return false;
+        }
+
         for (int i = 0; i < a.length; i++) {
             if (Math.abs(a[i] - b[i]) > 1e-6) {
                 return false;
             }
         }
+
         return true;
     }
 }
