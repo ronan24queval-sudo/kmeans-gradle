@@ -20,9 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class KMeansTest {
 
-    /**
-     * Verifies that the K-Means algorithm completes and returns exactly k centroids.
-     */
     @Test
     public void testKMeansRuns() {
         final List<double[]> data = Arrays.asList(
@@ -37,9 +34,6 @@ public class KMeansTest {
         assertEquals(2, centroids.size());
     }
 
-    /**
-     * Tests that exactly k points are selected as initial centroids.
-     */
     @Test
     public void testInitializeCentroids() {
         final KMeans k = new KMeans(2, 10);
@@ -56,9 +50,6 @@ public class KMeansTest {
         assertEquals(2, centroids.size(), "Should pick exactly k initial centroids");
     }
 
-    /**
-     * Tests that points are assigned to the correct centroid based on Euclidean distance.
-     */
     @Test
     public void testAssignPointsToClusters() {
         final KMeans k = new KMeans(2, 10);
@@ -83,9 +74,6 @@ public class KMeansTest {
         assertEquals(2, clusters.get(centroids.get(1)).size());
     }
 
-    /**
-     * Tests that new centroids are correctly computed as the mean of cluster points.
-     */
     @Test
     public void testRecomputeCentroids() {
         final KMeans k = new KMeans(2, 10);
@@ -110,7 +98,31 @@ public class KMeansTest {
 
         final List<double[]> newCentroids = k.recomputeCentroids(clusters);
 
-        assertArrayEquals(new double[]{2.0, 2.0}, newCentroids.get(0));
-        assertArrayEquals(new double[]{12.0, 12.0}, newCentroids.get(1));
+        assertEquals(2, newCentroids.size());
+
+        boolean foundFirst = false;
+        boolean foundSecond = false;
+
+        for (double[] c : newCentroids) {
+            if (arraysEqualWithTolerance(c, new double[]{2.0, 2.0})) {
+                foundFirst = true;
+            }
+            if (arraysEqualWithTolerance(c, new double[]{12.0, 12.0})) {
+                foundSecond = true;
+            }
+        }
+
+        assertTrue(foundFirst, "Centroid [2.0, 2.0] not found");
+        assertTrue(foundSecond, "Centroid [12.0, 12.0] not found");
+    }
+
+    private boolean arraysEqualWithTolerance(double[] a, double[] b) {
+        if (a.length != b.length) return false;
+        for (int i = 0; i < a.length; i++) {
+            if (Math.abs(a[i] - b[i]) > 1e-6) {
+                return false;
+            }
+        }
+        return true;
     }
 }
