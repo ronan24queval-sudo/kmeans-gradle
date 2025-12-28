@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"kmeans.gradle","l":"App"},{"p":"com.ronan.kmeans","l":"KMeans"},{"p":"com.ronan.kmeans","l":"Main"}];updateSearchResults();
