@@ -15,9 +15,8 @@ permissions:
 
 jobs:
 
-  # ============================
   # Question 1: Build & Tests
-  # ============================
+
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -41,9 +40,8 @@ jobs:
       - name: Build project and run unit tests
         run: ./gradlew clean build
 
-  # ============================
   # Question 2: Code Analysis
-  # ============================
+  
   code-analysis:
     runs-on: ubuntu-latest
 
@@ -63,9 +61,8 @@ jobs:
       - name: Run Checkstyle analysis
         run: ./gradlew checkstyleMain checkstyleTest
 
-  # ============================
   # Question 3: Release on tag
-  # ============================
+  
   release:
     runs-on: ubuntu-latest
     needs:
@@ -130,9 +127,9 @@ jobs:
           asset_name: kmeans-${{ github.ref_name }}.jar
           asset_content_type: application/java-archive
 
-  # ============================
+
   # Question 4: Documentation
-  # ============================
+  
   documentation:
     runs-on: ubuntu-latest
 
