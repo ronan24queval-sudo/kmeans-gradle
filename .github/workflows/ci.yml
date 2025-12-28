@@ -4,14 +4,16 @@ on:
   push:
     branches:
       - todo-8
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - todo-8
 
 jobs:
-  
+
   # Question 1: Build & Tests
-  
+ 
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -36,7 +38,7 @@ jobs:
         run: ./gradlew clean build
 
   # Question 2: Code Analysis
- 
+  
   code-analysis:
     runs-on: ubuntu-latest
 
@@ -55,9 +57,9 @@ jobs:
 
       - name: Run Checkstyle analysis
         run: ./gradlew checkstyleMain checkstyleTest
-  # ============================
+
   # Question 3: Release on tag
-  # ============================
+  
   release:
     runs-on: ubuntu-latest
     needs:
@@ -87,7 +89,12 @@ jobs:
       - name: Generate changelog
         run: |
           echo "## Changelog" > CHANGELOG.md
-          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> CHANGELOG.md
+          PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
+          if [ -z "$PREV_TAG" ]; then
+            git log --pretty=format:"- %s" >> CHANGELOG.md
+          else
+            git log --pretty=format:"- %s" ${PREV_TAG}..HEAD >> CHANGELOG.md
+          fi
 
       - name: Create GitHub Release
         id: create_release
