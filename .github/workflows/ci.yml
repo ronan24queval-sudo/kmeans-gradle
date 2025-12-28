@@ -1,0 +1,33 @@
+name: CI - Build and Test (Matrix)
+
+on:
+  push:
+    branches:
+      - todo-8
+  pull_request:
+    branches:
+      - todo-8
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [17, 21]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java-version }}
+
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build and run tests
+        run: ./gradlew clean build
